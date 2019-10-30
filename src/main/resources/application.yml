@@ -4,7 +4,7 @@ spring:
     url: jdbc:mysql://localhost:3307/msa?characterEncoding=UTF-8&serverTimezone=UTC
     username: admin
     password: admin
-#  jpa:
-#    hibernate.ddl-auto: update
-#    generate-ddl: true
-#    show-sql: true
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
