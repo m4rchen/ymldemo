@@ -51,6 +51,7 @@ public class ItemController {
 
     @PostMapping(value = "/items/{itemId}/edit")
     public String setEditItem(@ModelAttribute Item item, @PathVariable("itemId") Long itemId){
+        item.setId(itemId);
         itemService.editItem(item);
         return "redirect:/items/"+item.getId();
     }

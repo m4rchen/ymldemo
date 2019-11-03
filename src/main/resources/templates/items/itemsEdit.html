@@ -3,7 +3,6 @@
 <h2>Owner</h2>
 <form th:object="${item}" th:method="POST">
     <fieldset>
-        <input type="hidden" th:field="*{id}" th:value="*{getId()}" />
         <b th:text="Name"></b>
         <input type="text" th:field="*{name}" th:value="*{getName()}" />
         <p></p>
