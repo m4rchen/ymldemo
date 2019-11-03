@@ -3,7 +3,9 @@ package com.example.ymldemo.item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
@@ -25,13 +27,12 @@ public class ItemController {
     @GetMapping(value = "/items/{itemId}")
     public ModelAndView getInfo(@PathVariable("itemId") long itemId){
         ModelAndView modelAndView = new ModelAndView("items/itemsInfo");
-
         Optional<Item> item = itemService.getById(itemId);
+
         if (item != null){
             modelAndView.addObject("id", itemId);
             modelAndView.addObject("item", item.get());
         }
-
 
         return modelAndView;
     }
@@ -39,8 +40,8 @@ public class ItemController {
     @GetMapping(value = "/items/{itemId}/edit")
     public ModelAndView getEditItem(@PathVariable("itemId") long itemId){
         ModelAndView modelAndView = new ModelAndView("items/itemsEdit");
-
         Optional<Item> item = itemService.getById(itemId);
+
         if (item != null){
             modelAndView.addObject("item", item.get());
         }
@@ -48,6 +49,11 @@ public class ItemController {
         return modelAndView;
     }
 
+    @PostMapping(value = "/items/{itemId}/edit")
+    public String setEditItem(@ModelAttribute Item item, @PathVariable("itemId") Long itemId){
+        itemService.editItem(item);
+        return "redirect:/items/"+item.getId();
+    }
     //@GetMapping(value = "/items/new")
 
     //@PostMapping(value = "/items/new")
@@ -55,7 +61,6 @@ public class ItemController {
     //@GetMapping(value = "/items/find")
 
 
-    //@PostMapping(value = "/items/{itemId}/edit")
 
 
 }
