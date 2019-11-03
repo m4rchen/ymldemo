@@ -20,10 +20,6 @@ public class ItemService {
         return itemRepository.findByName(name);
     }
 
-    public void save(Item item){
-        itemRepository.save(item);
-    }
-
     public Optional<Item> getById(long id) {
         return itemRepository.findById(id);
     }
