@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<body>
+
+<h2>Item Info</h2>
+
+<table class="table table-striped" th:object="${item}">
+    <tr>
+        <th>Name</th>
+        <td><b th:text="*{getName()}"></b></td>
+    </tr>
+        <th>Address</th>
+        <td><b th:text="*{getCountry()}"></b></td>
+    </tr>
+</table>
+
+<a th:href="@{{id}/edit(id=${item.getId()})}" class="btn btn-default">Edit Item</a>
+
+</body>
+</html>

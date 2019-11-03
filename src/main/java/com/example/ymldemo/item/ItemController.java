@@ -3,7 +3,10 @@ package com.example.ymldemo.item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Optional;
 
 @Controller
 public class ItemController {
@@ -12,9 +15,35 @@ public class ItemController {
     ItemService itemService;
 
     @GetMapping(value = "/items")
-    public ModelAndView readItem() {
-        ModelAndView modelAndView = new ModelAndView("itemsList");
+    public ModelAndView getList() {
+        ModelAndView modelAndView = new ModelAndView("items/itemsList");
         modelAndView.addObject( "itemsList",itemService.getAllItems());
+
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/items/{itemId}")
+    public ModelAndView getInfo(@PathVariable("itemId") long itemId){
+        ModelAndView modelAndView = new ModelAndView("items/itemsInfo");
+
+        Optional<Item> item = itemService.getById(itemId);
+        if (item != null){
+            modelAndView.addObject("id", itemId);
+            modelAndView.addObject("item", item.get());
+        }
+
+
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/items/{itemId}/edit")
+    public ModelAndView getEditItem(@PathVariable("itemId") long itemId){
+        ModelAndView modelAndView = new ModelAndView("items/itemsEdit");
+
+        Optional<Item> item = itemService.getById(itemId);
+        if (item != null){
+            modelAndView.addObject("item", item.get());
+        }
 
         return modelAndView;
     }
@@ -25,7 +54,6 @@ public class ItemController {
 
     //@GetMapping(value = "/items/find")
 
-    //@GetMapping(value = "/items/{itemId}/edit")
 
     //@PostMapping(value = "/items/{itemId}/edit")
 
